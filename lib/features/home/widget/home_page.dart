@@ -14,7 +14,6 @@ import 'package:hiddify/features/proxy/active/active_proxy_delay_indicator.dart'
 import 'package:hiddify/features/proxy/active/active_proxy_footer.dart';
 import 'package:hiddify/utils/placeholders.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
@@ -54,31 +53,33 @@ class HomePage extends HookConsumerWidget {
                 ],
               ),
               switch (activeProfile) {
-                // 如果有活跃的配置文件，显示相应的内容
-                AsyncData(value: final profile?) => MultiSliver(
-                    children: [
-                      ProfileTile(profile: profile, isMain: true),
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Expanded(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ConnectionButton(),
-                                  ActiveProxyDelayIndicator(),
-                                ],
+                // 修改布局结构，避免使用MultiSliver
+                AsyncData(value: final profile?) => SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        ProfileTile(profile: profile, isMain: true),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height - 200, // 设置一个合适的高度
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ConnectionButton(),
+                                    ActiveProxyDelayIndicator(),
+                                  ],
+                                ),
                               ),
-                            ),
-                            if (MediaQuery.sizeOf(context).width < 840)
-                              const ActiveProxyFooter(),
-                          ],
+                              if (MediaQuery.sizeOf(context).width < 840)
+                                const ActiveProxyFooter(),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 // 修改无活跃配置文件时的提示信息
                 AsyncData() => switch (hasAnyProfile) {

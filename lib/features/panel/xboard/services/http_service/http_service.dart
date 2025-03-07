@@ -56,6 +56,13 @@ class HttpService {
     final url = Uri.parse('$baseUrl$endpoint');
 
     try {
+      // 添加调试信息，打印请求体
+      if (kDebugMode) {
+        print("POST请求到 $baseUrl$endpoint");
+        print("请求体: ${json.encode(body)}");
+        print("请求头: ${requiresHeaders ? (headers ?? {'Content-Type': 'application/json'}) : 'null'}");
+      }
+      
       final response = await http
           .post(
             url,

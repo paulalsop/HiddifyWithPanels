@@ -14,11 +14,12 @@ public enum FilePath {
 }
 
 public extension FilePath {
-    static let groupName = "group.\(packageName)"
+    // 使用固定的App Group ID，不再动态生成
+    static let groupName = "group.app.xingqiu.miao"
 
-    private static let defaultSharedDirectory: URL! = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: FilePath.groupName)
+    private static let defaultSharedDirectory: URL? = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: FilePath.groupName)
 
-    static let sharedDirectory = defaultSharedDirectory!
+    static let sharedDirectory: URL = defaultSharedDirectory ?? FileManager.default.temporaryDirectory
 
     static let cacheDirectory = sharedDirectory
         .appendingPathComponent("Library", isDirectory: true)

@@ -5,10 +5,21 @@ class AuthService {
   final HttpService _httpService = HttpService();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
+    print('AuthService.login 方法被调用 - 邮箱: [$email], 密码: [$password]');
+    
+    // 创建请求参数字典
+    final Map<String, dynamic> requestBody = {
+      "email": email,
+      "password": password,
+    };
+    
+    print('准备发送请求体: $requestBody');
+    
     return await _httpService.postRequest(
       "/api/v1/passport/auth/login",
-      {"email": email, "password": password},
-      requiresHeaders: false,
+      requestBody,
+      requiresHeaders: true,
+      headers: {'Content-Type': 'application/json'},
     );
   }
 

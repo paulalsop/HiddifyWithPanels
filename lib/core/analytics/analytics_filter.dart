@@ -5,7 +5,12 @@ import 'package:hiddify/core/model/failures.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-FutureOr<SentryEvent?> sentryBeforeSend(SentryEvent event, {Hint? hint}) {
+// 增加Hint类型的空实现
+class Hint {
+  const Hint();
+}
+
+FutureOr<SentryEvent?> sentryBeforeSend(SentryEvent event, dynamic hint) {
   if (!canSendEvent(event.throwable)) return null;
   return event.copyWith(
     user: SentryUser(email: "", username: "", ipAddress: "0.0.0.0"),

@@ -11,11 +11,15 @@ class SliverBodyPlaceholder extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SliverFillRemaining(
-      hasScrollBody: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: children,
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height - 100,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: children,
+          ),
+        ),
       ),
     );
   }
@@ -26,11 +30,15 @@ class SliverLoadingBodyPlaceholder extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const SliverFillRemaining(
-      hasScrollBody: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [CircularProgressIndicator()],
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height - 100,
+        child: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [CircularProgressIndicator()],
+          ),
+        ),
       ),
     );
   }
@@ -48,17 +56,21 @@ class SliverErrorBodyPlaceholder extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SliverFillRemaining(
-      hasScrollBody: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (icon != null) ...[
-            Icon(icon),
-            const Gap(16),
-          ],
-          Text(msg),
-        ],
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height - 100,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (icon != null) ...[
+                Icon(icon),
+                const Gap(16),
+              ],
+              Text(msg),
+            ],
+          ),
+        ),
       ),
     );
   }

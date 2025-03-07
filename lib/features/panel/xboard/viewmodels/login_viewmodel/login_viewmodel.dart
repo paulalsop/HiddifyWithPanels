@@ -59,7 +59,11 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
+      print('正在尝试登录 - 邮箱: [$email], 密码: [$password]');
+      
       final result = await _authService.login(email, password);
+      
+      print('登录响应: $result');
 
       String? authData;
       String? token;

@@ -84,6 +84,12 @@ class VPNManager: ObservableObject {
         // guard !loaded else { return }
         loaded = true
         do {
+            // 强制清除所有旧VPN配置
+            let managers = try await NETunnelProviderManager.loadAllFromPreferences()
+            for manager in managers {
+                try await manager.removeFromPreferences()
+            }
+            
             try await loadVPNPreference()
         } catch {
             print(error.localizedDescription)
@@ -99,7 +105,7 @@ class VPNManager: ObservableObject {
             }
             let newManager = NETunnelProviderManager()
             let `protocol` = NETunnelProviderProtocol()
-            `protocol`.providerBundleIdentifier = Bundle.main.baseBundleIdentifier + ".SingBoxPacketTunnel"
+            `protocol`.providerBundleIdentifier = Bundle.main.baseBundleIdentifier + ".PacketTunnel"
             `protocol`.serverAddress = "localhost"
             newManager.protocolConfiguration = `protocol`
             newManager.localizedDescription = "Hiddify"
@@ -197,12 +203,14 @@ class VPNManager: ObservableObject {
         guard state == .disconnected else { return }
         do {
             try await enableVPNManager()
+            print("VPN连接配置: \(Bundle.main.baseBundleIdentifier).PacketTunnel")
             try manager.connection.startVPNTunnel(options: [
                 "Config": config as NSString,
                 "DisableMemoryLimit": (disableMemoryLimit ? "YES" : "NO") as NSString,
             ])
         } catch {
-            print(error.localizedDescription)
+            print("VPN连接失败: \(error.localizedDescription)")
+            print("详细错误: \(error)")
         }
         connectTime = .now
     }

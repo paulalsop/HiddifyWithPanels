@@ -12,19 +12,23 @@ class EmptyProfilesHomeBody extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(translationsProvider);
 
-    return SliverFillRemaining(
-      hasScrollBody: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(t.home.emptyProfilesMsg),
-          const Gap(16),
-          OutlinedButton.icon(
-            onPressed: () => const AddProfileRoute().push(context),
-            icon: const Icon(FluentIcons.add_24_regular),
-            label: Text(t.profile.add.buttonText),
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height - 100,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(t.home.emptyProfilesMsg),
+              const Gap(16),
+              OutlinedButton.icon(
+                onPressed: () => const AddProfileRoute().push(context),
+                icon: const Icon(FluentIcons.add_24_regular),
+                label: Text(t.profile.add.buttonText),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -37,18 +41,22 @@ class EmptyActiveProfileHomeBody extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(translationsProvider);
 
-    return SliverFillRemaining(
-      hasScrollBody: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(t.home.noActiveProfileMsg),
-          const Gap(16),
-          OutlinedButton(
-            onPressed: () => const ProfilesOverviewRoute().push(context),
-            child: Text(t.profile.overviewPageTitle),
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height - 100,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(t.home.noActiveProfileMsg),
+              const Gap(16),
+              OutlinedButton(
+                onPressed: () => const ProfilesOverviewRoute().push(context),
+                child: Text(t.profile.overviewPageTitle),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

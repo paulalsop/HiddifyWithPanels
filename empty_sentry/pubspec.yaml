@@ -1,0 +1,16 @@
+name: sentry_flutter
+description: A dummy package to replace sentry_flutter
+version: 0.0.1
+
+environment:
+  sdk: '>=2.12.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter: 

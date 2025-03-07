@@ -56,6 +56,13 @@ public class MethodHandler: NSObject, FlutterPlugin {
             }
             VPNConfig.shared.configOptions = options
             result(true)
+        case "change_hiddify_options":
+            guard let options = call.arguments as? String else {
+                result(FlutterError(code: "INVALID_ARGS", message: nil, details: nil))
+                return
+            }
+            VPNConfig.shared.configOptions = options
+            result(true)
         case "setup":
             Task {
                 do {
