@@ -84,12 +84,7 @@ class VPNManager: ObservableObject {
         // guard !loaded else { return }
         loaded = true
         do {
-            // 强制清除所有旧VPN配置
-            let managers = try await NETunnelProviderManager.loadAllFromPreferences()
-            for manager in managers {
-                try await manager.removeFromPreferences()
-            }
-            
+            // 不再清除旧VPN配置，直接加载现有配置
             try await loadVPNPreference()
         } catch {
             print(error.localizedDescription)
@@ -108,7 +103,7 @@ class VPNManager: ObservableObject {
             `protocol`.providerBundleIdentifier = Bundle.main.baseBundleIdentifier + ".PacketTunnel"
             `protocol`.serverAddress = "localhost"
             newManager.protocolConfiguration = `protocol`
-            newManager.localizedDescription = "Hiddify"
+            newManager.localizedDescription = "Miao Planet"
             try await newManager.saveToPreferences()
             try await newManager.loadFromPreferences()
             self.manager = newManager
@@ -157,10 +152,7 @@ class VPNManager: ObservableObject {
             Task { [weak self] () in
                 self?.manager = .shared()
                 do {
-                    let managers = try await NETunnelProviderManager.loadAllFromPreferences()
-                    for manager in managers ?? [] {
-                        try await manager.removeFromPreferences()
-                    }
+                    // 不再清除所有VPN配置
                     try await self?.loadVPNPreference()
                 } catch {
                     print(error.localizedDescription)

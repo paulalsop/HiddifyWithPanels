@@ -1,6 +1,6 @@
 {
     "general": {
-        "appTitle": "Hiddify",
+        "appTitle": "Miao Planet",
         "reset": "重置",
         "toggle": {
             "enabled": "启用",
@@ -218,7 +218,7 @@
         "detailsPageTitle": "配置文件",
         "activeProfileNameSemanticLabel": "激活的配置文件名称：“${name}”。",
         "activeProfileBtnSemanticLabel": "查看所有配置文件",
-        "nonActiveProfileBtnSemanticLabel": "选择 “${name}” 作为激活的配置文件",
+        "nonActiveProfileBtnSemanticLabel": "选择“${name}”作为激活的配置文件",
         "subscription": {
             "traffic": "流量",
             "updatedTimeAgo": "更新于 ${timeago}",
@@ -259,8 +259,8 @@
             "updateSubscriptions": "更新订阅",
             "failureMsg": "更新配置文件失败",
             "successMsg": "配置文件更新成功",
-            "namedFailureMsg": "无法更新\"${name}\"",
-            "namedSuccessMsg": "\"${name}\" 更新成功"
+            "namedFailureMsg": "无法更新“${name}”",
+            "namedSuccessMsg": "“${name}” 更新成功"
         },
         "share": {
             "buttonText": "分享",
